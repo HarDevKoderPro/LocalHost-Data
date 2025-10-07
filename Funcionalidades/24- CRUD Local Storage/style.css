@@ -1,0 +1,24 @@
+.contenedorGeneral {
+  border: 1px solid gray;
+  width: fit-content;
+  padding: 10px;
+
+  button{
+    border-radius: 3px;
+    border: 1px solid gray;
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  button:hover{
+    background:rgba(0, 0, 0, .2);
+  }
+
+  .spanResultados{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+  }
+  
+}
