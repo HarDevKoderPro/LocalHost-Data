@@ -2,8 +2,9 @@
 // Obtener los datos a enviar JSON desde JavaScript
 $data = json_decode(file_get_contents("php://input"), true);
 $estaRegistrado = '';
-$nombres = '';
-$cantidadRegistros = '';
+$nombresDelUsuario = '';
+$registrosDelUsuario = '';
+$registrosAcumuladosSistema = '';
 
 // Configurar credenciales de conexión a la base de datos
 //  $host = "190.8.176.115"; // Desarrollo Remoto
@@ -56,16 +57,26 @@ if (isset(
       $sqlNombres = "SELECT nombres FROM registros WHERE email = '$email' LIMIT 1";
       $result3 = $conn->query($sqlNombres);
       $row = $result3->fetch_assoc();
-      $nombres = $row['nombres'];
+      $nombresDelUsuario = $row['nombres'];
 
       // Obtengo la cantidad de registros del usuario
       $sqlRegistros = "SELECT registros FROM referentes WHERE email = '$email' LIMIT 1";
       $result4 = $conn->query($sqlRegistros);
       $row = $result4->fetch_assoc();
-      $cantidadRegistros = $row['registros'];
+      $registrosDelUsuario = $row['registros'];
+
+      // Obtengo la suma acumulada de la columna registros
+      $sqlConteo = "SELECT SUM(registros) AS total FROM referentes";
+      $result = $conn->query($sqlConteo);
+      $row = $result->fetch_assoc();
+      $registrosAcumuladosSistema = $row['total'];
 
       // Envio los datos obtenidos al Frontend (JS)
-      echo json_encode(['estaRegistrado' => true, 'nombres' => $nombres, 'cantidadRegistros' => $cantidadRegistros]); //devuelve true 
+      echo json_encode([
+        'estaRegistrado' => true, 
+        'nombresDelUsuario' => $nombresDelUsuario, 
+        'registrosDelUsuario' => $registrosDelUsuario, 
+        'registrosAcumuladosSistema' => $registrosAcumuladosSistema]);
 
     } else {
 

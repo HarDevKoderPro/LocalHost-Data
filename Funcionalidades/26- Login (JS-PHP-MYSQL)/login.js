@@ -8,7 +8,7 @@ const cajaPassword = document.getElementById("cajaPassword");
 // Función que Guarda datos en variables PHP
 const enviarDatosAPhp = (datosUsuario) => {
   // Envio de datos Js a variables PHP con fetch
-  fetch("./auth_login.php", {
+  fetch("./login.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
